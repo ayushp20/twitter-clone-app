@@ -14,7 +14,7 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 
 // Register
 router.post('/register', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { name, email, password, password2 } = req.body;
     let errors = [];
 
@@ -85,7 +85,7 @@ router.post('/register', (req, res) => {
 //Login handle
 router.post('/login', (req, res, next)=>{
     passport.authenticate('local',{
-        successRedirect:'/dashboard',
+        successRedirect:'/home',
         failureRedirect:'login',
         failureFlash: true
     })(req, res, next)

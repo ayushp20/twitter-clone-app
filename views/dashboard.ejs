@@ -1,3 +1,27 @@
-<h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome <%= name %> </p>
-<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<%- include ('./partials/header.ejs') %> 
+<div class="card text-white bg-dark mb-3" text-align = "center">
+  <div class="card-header"><h1>Dashboard</h1></div>
+  <div class="card-body">
+    <h4 class="card-title">Welcome <%= name %></h4>
+    <p class="card-text">This is your page.</p>
+  </div>
+</div>
+
+<%- include ('./partials/messages.ejs') %> 
+<form action="/dashboard" method="POST">
+    <div class="form-group">
+      <label for="tweet">Tweet</label>
+      <br>
+      <textarea type='text' id='content' name="content" placeholder="What's on your mind today?"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+
+<% tweets.forEach(tweet =>{ %>
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class="card-body">
+      <h4 class="card-title"><%= tweet.message%></h4>
+      <p class="card-text"><%= tweet.dateCreated.toISOString().split('T')[0] %> <%= tweet.dateCreated.toISOString().split('T')[1] %></p>
+    </div>
+  </div>
+<% }) %> 
