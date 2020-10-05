@@ -1,3 +1,9 @@
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV !== 'production'){
+  
+  require('dotenv').config()
+}
+
 const express  = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
@@ -10,13 +16,13 @@ const app = express()
 //Passport Config
 require('./config/passport')(passport)
 
-//DB Config
-const db = require('./config/keys').MongoURI
-
 //Connect to Mongo
-mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology:true})
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology:true})
 .then(() => console.log("MongoDB Connected..."))
 .catch(err => console.log(err))
+
+const db = mongoose.connection
+db.once('open', () =>console.log('Connected to Mongoose'))
 
 //public static
 app.use(express.static("public"))
