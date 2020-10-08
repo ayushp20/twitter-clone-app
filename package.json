@@ -24,5 +24,10 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
+  },
+  "nodemonConfig":{
+      "events": {
+        "start": "clear"
+      }
   }
 }

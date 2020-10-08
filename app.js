@@ -19,8 +19,8 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopolo
 .then(() => console.log("MongoDB Connected..."))
 .catch(err => console.log(err))
 
-const db = mongoose.connection
-db.once('open', () =>console.log('Connected to Mongoose'))
+// const db = mongoose.connection
+// db.once('open', () =>console.log('Connected to Mongoose'))
 
 //public static
 app.use(express.static("public"))
@@ -46,7 +46,7 @@ app.use(passport.session())
 // Connect flash
 app.use(flash())
 
-//Global VArs
+//Global Vars
 app.use((req, res, next)=>{
     res.locals.success_msg = req.flash('success_msg')
     res.locals.error_msg = req.flash('error_msg')
@@ -57,6 +57,7 @@ app.use((req, res, next)=>{
 //Routes
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
+app.use('/tweet', require('./routes/tweet'))
 
 const PORT = process.env.PORT || 5000
 

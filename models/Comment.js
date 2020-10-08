@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const TweetSchema = new mongoose.Schema({
+const CommentSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true
@@ -17,16 +17,12 @@ const TweetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    likes:[{
+    tweetId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    comments:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
-    }]
+        ref: 'Tweet'
+    }
 })
 
-const Tweet = mongoose.model('Tweet', TweetSchema)
+const Comment = mongoose.model('Comment', CommentSchema)
 
-module.exports = Tweet
+module.exports = Comment

@@ -1,0 +1,18 @@
+<div class="col-md-6 m-auto">
+    <div class="card card-body text-center">
+        <div class="card text-white bg-primary mb-3 ">
+            <div class="card-header"><%= tweet.creatorName %></div>
+            <a href=<%= "/tweet/" + tweet._id  %> class="list-group-item list-group-item-action active">
+                <div class="card-body">
+                    <h4 class="card-title"><%= tweet.message%></h4>
+                    <p class="card-text"><%= tweet.dateCreated.toDateString() %></p>
+                </div>
+            </a>
+            <!-- <button type="submit" class="btn btn-secondary"><i class="far fa-heart"></i></button> -->
+            <a><button type="submit" class="btn btn-secondary"><i class="far fa-comment"></i></button></a>
+            
+        </div>
+        <%- include ('messages.ejs') %>
+    </div>
+
+</div>

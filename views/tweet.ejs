@@ -1,0 +1,16 @@
+<%- include ('./partials/header.ejs') %>
+<!-- Tweet -->
+<%- include ('./partials/tweet.ejs') %>
+<!-- Add Comment Form -->
+<form action=<%= "/tweet/" + tweet._id  %> method="POST">
+    <fieldset>
+        <div class="form-group">
+            <label for="comment">Comments</label>
+            <textarea class="form-control" type='text' id='comment' name="comment" placeholder="Comment..."
+                rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+</form>
+<!-- Comments -->
+<%- include ('./partials/comments.ejs') %>

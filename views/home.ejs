@@ -1,38 +1,47 @@
 <%- include ('./partials/header.ejs') %>
 <div class="col-md-6 m-auto">
-      <div class="card card-body text-center"> 
-                  <div class="card text-white bg-dark mb-3" style="max-width: 40rem;"  >
-                        <div class="card-header"><h1>Home Feed</h1></div>
-                              <div class="card-body">
-                                    <h4 class="card-title">View All Tweets</h4>
-                                    <p class="card-text">Check out what's the world been upto !!!</p>
-                               </div>
+      <div class="card card-body text-center">
+            <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+                  <div class="card-header">
+                        <h1>Home Feed</h1>
+                  </div>
+                  <div class="card-body">
+                        <h4 class="card-title">View All Tweets</h4>
+                        <p class="card-text">Check out what's the world been upto !!!</p>
                   </div>
             </div>
       </div>
+</div>
 <div class="col-md-6 m-auto">
-      <div class="card card-body text-center"> 
-            <%- include ('./partials/messages.ejs') %> 
+      <div class="card card-body text-center">
             <form action="/dashboard" method="POST">
                   <div class="form-group" margin="auto" style="max-width: 40rem;">
-                        <textarea class="form-control" type='text' id='content' name="content" placeholder="What's on your mind today?" rows="3"></textarea>
+                        <textarea class="form-control" type='text' id='content' name="content"
+                              placeholder="What's on your mind today?" rows="3"></textarea>
                         <button type="submit" class="btn btn-outline-primary">Tweet</button>
+                        <%- include ('./partials/messages.ejs') %>
                   </div>
             </form>
       </div>
 </div>
 
 <div class="col-md-6 m-auto">
-      <div class="card card-body text-center"> 
+      <div class="card card-body text-center">
             <% tweets.forEach(tweet =>{ %>
-                  <div class="card text-white bg-primary mb-3 "  >
-                        <div class="card-header"><%= tweet.creatorName %></div>
+            <div class="card text-white bg-primary mb-3 ">
+                  <div class="card-header"><%= tweet.creatorName %></div>
+                  <a href=<%= "/tweet/" + tweet._id  %> class="list-group-item list-group-item-action active">
                         <div class="card-body">
-                        <h4 class="card-title"><%= tweet.message%></h4>
-                        <p class="card-text"><%= tweet.dateCreated.toISOString().split('T')[0] %></p>
+                              <h4 class="card-title"><%= tweet.message%></h4>
+                              <p class="card-text"><%= tweet.dateCreated.toDateString()  %></p>
                         </div>
-                  </div>
-            <% }) %> 
+                  </a>
+                  <!-- <button type="submit" class="btn btn-secondary"><i class="far fa-heart"></i></button> -->
+                  <a href=<%= "/tweet/" + tweet._id  %>><button type="submit" class="btn btn-secondary"><i
+                                    class="far fa-comment"></i></button></a>
+
+            </div>
+            <% }) %>
 
       </div>
 </div>
