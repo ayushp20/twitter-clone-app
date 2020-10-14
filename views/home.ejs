@@ -1,7 +1,7 @@
 <%- include ('./partials/header.ejs') %>
-<div class="col-md-6 m-auto">
+<div class="col-md-10 m-auto">
       <div class="card card-body text-center">
-            <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+            <div class="card text-white bg-dark mb-3">
                   <div class="card-header">
                         <h1>Home Feed</h1>
                   </div>
@@ -29,11 +29,12 @@
       <div class="card card-body text-center">
             <% tweets.forEach(tweet =>{ %>
             <div class="card text-white bg-primary mb-3 ">
-                  <div class="card-header"><%= tweet.creatorName %></div>
+                  <div class="card-header"><%= tweet.creator.name %></div>
                   <a href=<%= "/tweet/" + tweet._id  %> class="list-group-item list-group-item-action active">
                         <div class="card-body">
                               <h4 class="card-title"><%= tweet.message%></h4>
-                              <p class="card-text"><%= tweet.dateCreated.toDateString()  %></p>
+                              <p class="card-text"><%= tweet.dateCreated.toDateString()%>
+                                    <%= tweet.dateCreated.toTimeString().split(" ",1)%> </p>
                         </div>
                   </a>
                   <!-- <button type="submit" class="btn btn-secondary"><i class="far fa-heart"></i></button> -->

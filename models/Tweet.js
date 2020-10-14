@@ -9,13 +9,9 @@ const TweetSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    creatorId: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
-    creatorName: {
-        type: String,
-        required: true
     },
     likes:[{
         type: mongoose.Schema.Types.ObjectId,

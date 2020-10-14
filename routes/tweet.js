@@ -8,12 +8,16 @@ const { ensureAuthenticated } = require('../config/auth')
 
 router.get('/:id', ensureAuthenticated, async (req, res) => {
     //All comments
-    const allComments = await Comment.find().sort({ "dateCreated": -1 })
-    // console.log("GET route")
-    // console.log(allComments)
     try {
-        const tweet = await Tweet.findById(req.params.id)
-        res.render('tweet', { tweet, allComments })
+        const tweet = await Tweet.findById(req.params.id).populate('creator').populate({
+            path: 'comments',
+            populate: {
+                path: 'creator',
+                model: 'User'
+            }
+        })
+        // console.log(tweet)
+        res.render('tweet', { tweet })
     } catch (err) {
         console.log(err)
     }
@@ -23,9 +27,8 @@ router.post('/:id', ensureAuthenticated, (req, res) => {
     // console.log(req.body)
     const newComment = new Comment({
         message: req.body.comment,
-        creatorId: req.user._id,
-        creatorName: req.user.name,
-        tweetId: req.params.id,
+        creator: req.user._id,
+        parentTweet: req.params.id,
         dateCreated: Date.now()
     })
     //Save Comment to database
@@ -49,9 +52,18 @@ router.post('/:id', ensureAuthenticated, (req, res) => {
             user.commentsCreated.push(newComment)
             user.save().then(user2 => console.log("New comment Posted by:" + user.name + "!"))
         })
+})
 
-    // console.log(allComments)
-
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
+    let tweet
+    try {
+        tweet = await Tweet.findById(req.params.id)
+        await tweet.remove()
+        req.flash('success_msg', 'Your tweet has been deleted.')
+        res.redirect('/dashboard')
+    } catch {
+        res.redirect('/dashboard')
+    }
 })
 
 module.exports = router;

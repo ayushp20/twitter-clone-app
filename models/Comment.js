@@ -9,19 +9,19 @@ const CommentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    creatorId: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    creatorName: {
-        type: String,
-        required: true
-    },
-    tweetId: {
+    parentTweet: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tweet'
     }
 })
+
+CommentSchema.pre('find', function() {
+    this.populate('creator').populate( 'parentTweet');
+  });
 
 const Comment = mongoose.model('Comment', CommentSchema)
 
