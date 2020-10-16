@@ -114,8 +114,8 @@ router.put('/changepassword', (req, res) => {
     console.log("PUT change password")
     const { currentPassword, newPassword1, newPassword2 } = req.body
     const user = req.user
-    console.log(req.body)
-    console.log(`${currentPassword} ${newPassword1} ${newPassword2}`)
+    // console.log(req.body)
+    // console.log(`${currentPassword} ${newPassword1} ${newPassword2}`)
     let errors = []
     if (!currentPassword || !newPassword1 || !newPassword2) {
         errors.push({ msg: 'Please enter all fields' });
@@ -131,7 +131,7 @@ router.put('/changepassword', (req, res) => {
     
     if(errors.length > 0){
         console.log(errors)
-        res.render('changepassword', { errors })
+        res.render('changePassword', { errors })
     }
     else {
         try {
@@ -159,7 +159,7 @@ router.put('/changepassword', (req, res) => {
             console.log(err)
             errors.push({ msg: 'Current password entered is incorrect.' })
             console.log(errors)
-            res.render('changepassword', { errors })
+            res.render('changePassword', { errors })
         }
 
     }
