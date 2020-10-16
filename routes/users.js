@@ -20,7 +20,7 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 // Register
 router.post('/register', (req, res) => {
     // console.log(req.body)
-    const { name, email, password, password2 } = req.body;
+    let { name, email, password, password2 } = req.body;
     let errors = [];
 
     if (!name || !email || !password || !password2) {
@@ -46,6 +46,7 @@ router.post('/register', (req, res) => {
         });
     } else {
         //Validation Passed
+        email = email.toLowerCase()
         User.findOne({ email: email })
             .then(user => {
                 if (user) {
@@ -59,6 +60,7 @@ router.post('/register', (req, res) => {
                         password2
                     });
                 } else {
+                    
                     const newUser = new User({
                         name,
                         email,
@@ -189,7 +191,7 @@ router.put('/:id', async (req, res) => {
                 user.name = name
                 user.email = email
                 user.save()
-                    .then(async (user) => {
+                    .then((user) => {
                         req.flash('success_msg', 'You have successfully edited your profile.')
                         res.redirect('/dashboard')
                     })
